@@ -1,44 +1,41 @@
-package cardGame;
+package cardgame;
 
 import java.util.Random;
 
 public class Card {
     private char symbol;
-    public  StringBuilder alphabet = new StringBuilder("ABCDEFGHIJKLMNOPQRSTUVWXYZ");
 
+    public Card(char symbol) {
+        this.symbol = symbol;
 
-    public Card(char s) {
-        this.symbol = s;
     }
 
     public char getSymbol() {
+        //System.out.println("im in getSymbol");
         return this.symbol;
     }
     public void setSymbol(char s) {
         this.symbol = s;
     }
 
-    public Card fillCard() {
-        Random r = new Random();
+    public static Card fillCard(int index) {
+        StringBuilder alphabet = new StringBuilder("ABCDEFGHIJKLMNOPQRSTUVWXYZ");
         char randomSymbol ;
+        randomSymbol = alphabet.charAt(index);
 
-        randomSymbol = alphabet.charAt(r.nextInt(alphabet.length()));
-        Card c = new Card(randomSymbol);
-        System.out.println(c.getSymbol());
         return new Card(randomSymbol);
     }
 
-    public void lengthOfAlphabet(int length) {
+    public boolean equality(Card card) {
+        return this.symbol == card.symbol;
+    }
+
+    /*public void lengthOfAlphabet(int length) {
         alphabet.delete(length,26);
     }
     public void deleteLetter(char letter) {
         int index = alphabet.indexOf(String.valueOf(letter));
         alphabet.deleteCharAt(index);
-    }
-
-
-
-
-
+    }*/
 
 }

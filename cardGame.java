@@ -1,9 +1,16 @@
+package cardgame;
+
 import java.util.Scanner;
+import java.util.*;
 
 public class cardGame {
     public static void main(String[] args) {
+        Board table = new Board(4,6,2);
+        table.creationBoard();
+        table.printTable();
+        table.printFinalTable();
 
-        Scanner ans = new Scanner(System.in);
+        /*Scanner ans = new Scanner(System.in);
         int i;
         //Game game;
 
@@ -37,6 +44,6 @@ public class cardGame {
                     break;
                 }
             }
-        } while(i != 0);
+        } while(i != 0);*/
     }
 }
