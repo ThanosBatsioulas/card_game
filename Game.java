@@ -4,56 +4,67 @@ import java.util.Scanner;
 import java.util.*;
 
 public class Game {
-
     Board table ;
 
     public Game(int row, int col, int times) {
         table = new Board(row, col, times);
         int rounds = 0;
+        table.printFinalTable();
 
         do {
-            rounds = rounds +1;
+            rounds = rounds + 1;
             System.out.println("Κάνε την " + rounds + "η προσπάθεια..");
 
-            int[] coords = new int[2 * times];
-            for(int i = 0; i < 2 * times; i++ ) {
-                coords[i] = getCoordinate(i,times);
+
+            // Get times * set of coordinates [[x, y], [x, y]]
+            int[][] coords = new int[times][2];
+            for (int i = 0; i < times; i++ ) {
+                coords[i] = getCoordinates();
             }
-            if(table.matchCards(coords[0], coords[1], coords[2], coords[3])) {
-                System.out.println("Ταιριάζουν οι κάρτες μεταξύ τους");
-                table.changeFinalTable(coords[0], coords[1], coords[2], coords[3]);
+
+            if (table.matchCards(coords)) {
+                System.out.println("Ταιριάζουν οι κάρτες μεταξύ τους\n");
+                table.changeFinalTable(coords);
                 table.printFinalTable();
             }
             else {
-                table.printFakeTable(coords[0], coords[1], coords[2], coords[3]);
+                System.out.println("Δεν ταιριάζουν οι κάρτες μεταξύ τους\n");
+                table.printFakeTable(coords);
             }
-        }while(table.winTable() == false);
+        } while(table.winTable() == false);
     }
 
-    public int getCoordinate(int x, int t) {
-        int coordinate;
-        if(x % 2 == 0) {
-            System.out.println("Δώσε την γραμμή της κάρτας");
-            coordinate = readCoordinate();
-            return coordinate;
+    // Reads a set of coordinates x, y from the user
+    public int[] getCoordinates() {
+        int[] coordinates = new int[2];
+
+        System.out.println("Δώσε την γραμμή της κάρτας");
+        do {
+            System.out.println("i am in");
+            coordinates[0] = readCoordinate();
         }
+        while (!coordInRange(0, table.getRow(), coordinates[0]));
+
         System.out.println("Δώσε την στήλη της κάρτας");
-        coordinate = readCoordinate();
-        return coordinate;
+        do {
+            System.out.println("aek");
+            coordinates[1] = readCoordinate();
+        }
+        while (!coordInRange(0, table.getCol(), coordinates[1]));
+
+        return coordinates;
+    }
+
+    public boolean coordInRange(int min, int max, int x) {
+            boolean coordTest;
+            coordTest = (x >= min && x < max);
+            return coordTest;
     }
 
     public int readCoordinate() {
         Scanner scanner = new Scanner(System.in);
-        int coord;
-        boolean goodData = true;
-        do {
-            if(!goodData){
-                System.out.println("Πληκτολόγησες λάθος συντεταγμένη");
-            }
-            coord = scanner.nextInt()-1;
-            goodData = (coord >= 0 && coord < table.getRow()) || (coord >= 0 && coord < table.getCol());
+        int coord = scanner.nextInt();
 
-        } while(!goodData);
         return coord;
     }
 }

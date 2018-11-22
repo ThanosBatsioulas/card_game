@@ -14,6 +14,7 @@ public class Board {
         this.row = row;
         this.col = col;
         this.times = times;
+        creationBoard();
         for(int i = 0; i < row; i++) {
             for(int j = 0; j < col; j++){
                 finalTable[i][j] = '*';
@@ -51,13 +52,15 @@ public class Board {
         }
     }
 
-    public void printFakeTable(int c1, int c2, int c3, int c4) {
+    public void printFakeTable(int[][] coordSet) {
         for (int i = 0; i < row; i++) {
             for (int j = 0; j < col; j++) {
-                System.out.print(finalTable[i][j]);
-
-                if((i == c1 && j == c2) || (i == c3 && j == c4)){
+                if((i == coordSet[0][0] && j == coordSet[0][1]) || (i == coordSet[1][0] && j == coordSet[1][1])) {
                     System.out.print(myTable[i][j].getSymbol());
+                    System.out.print("      ");
+                }
+                else {
+                    System.out.print(finalTable[i][j]);
                     System.out.print("      ");
                 }
             }
@@ -74,18 +77,33 @@ public class Board {
         System.out.println("\n");
         }
     }
-
-    public boolean matchCards(int coord1, int coord2, int coord3, int coord4) {
-        if(myTable[coord1][coord2].getSymbol() == myTable[coord3][coord4].getSymbol()){
-            return true;
+    public void printMyTable() {
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < col; j++) {
+                System.out.print(myTable[i][j].getSymbol());
+                System.out.print("      ");
+            }
+        System.out.println("\n");
         }
-        return false;
     }
 
-    public void changeFinalTable(int c1, int c2, int c3, int c4) {
-        finalTable[c1][c2] = myTable[c1][c2].getSymbol();
-        finalTable[c3][c4] = myTable[c3][c4].getSymbol();
+    public boolean matchCards(int[][] coordinateSet) {
+        char firstLetter = myTable[coordinateSet[0][0]][coordinateSet[0][1]].getSymbol();
 
+        for (int i = 1; i < coordinateSet.length; ++i) {
+            char letter = myTable[coordinateSet[i][0]][coordinateSet[i][1]].getSymbol();
+
+            if (letter != firstLetter) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public void changeFinalTable(int[][] coordinateSet) {
+        for (int[] c : coordinateSet) {
+            finalTable[c[0]][c[1]] = myTable[c[0]][c[1]].getSymbol();
+        }
     }
 
     public boolean winTable() {

@@ -11,7 +11,6 @@ public class Card {
     }
 
     public char getSymbol() {
-        //System.out.println("im in getSymbol");
         return this.symbol;
     }
     public void setSymbol(char s) {

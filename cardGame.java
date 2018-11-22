@@ -21,18 +21,14 @@ public class cardGame {
             System.out.println();
             switch(i) {
                 case 1: {
-                    System.out.println("case 1");
                     game = new Game(4,6,2);
                     break;
                 }
                 case 2: {
-                    System.out.println("case 2");
-
                     game = new Game(6,8,2);
                     break;
                 }
                 case 3: {
-                    System.out.println("case 3");
                     game = new Game(6,6,3);
                     break;
                 }
