@@ -19,23 +19,26 @@ public class Game {
             for(int i = 0; i < 2 * times; i++ ) {
                 coords[i] = getCoordinate(i,times);
             }
-            if(table.matchCards(coords[0],cords[1],cord[2],cords[3])) {
+            if(table.matchCards(coords[0], coords[1], coords[2], coords[3])) {
                 System.out.println("Ταιριάζουν οι κάρτες μεταξύ τους");
-                table.changeFinalTable(coords[0],cords[1],cord[2],cords[3])
+                table.changeFinalTable(coords[0], coords[1], coords[2], coords[3]);
+                table.printFinalTable();
             }
-
-        }
+            else {
+                table.printFakeTable(coords[0], coords[1], coords[2], coords[3]);
+            }
+        }while(table.winTable() == false);
     }
 
     public int getCoordinate(int x, int t) {
         int coordinate;
-        if(x mod 2 == 0) {
-            System.out.println("Δώσε την γραμμή της " + (x+1) +"ης κάρτας");
-            coord = readCoordinate();
+        if(x % 2 == 0) {
+            System.out.println("Δώσε την γραμμή της κάρτας");
+            coordinate = readCoordinate();
             return coordinate;
         }
-        System.out.println("Δώσε την στήλη της" + (x+1) +"ης κάρτας");
-        coord = readCoordinate();
+        System.out.println("Δώσε την στήλη της κάρτας");
+        coordinate = readCoordinate();
         return coordinate;
     }
 
@@ -47,8 +50,8 @@ public class Game {
             if(!goodData){
                 System.out.println("Πληκτολόγησες λάθος συντεταγμένη");
             }
-            coord = scanner.nextInt();
-            goodData = (coord > 0 && coord < table.getRow()) || (coord > 0 && coord < table.getCol());
+            coord = scanner.nextInt()-1;
+            goodData = (coord >= 0 && coord < table.getRow()) || (coord >= 0 && coord < table.getCol());
 
         } while(!goodData);
         return coord;

@@ -5,14 +5,11 @@ import java.util.*;
 
 public class cardGame {
     public static void main(String[] args) {
-        Board table = new Board(4,6,2);
-        table.creationBoard();
-        table.printTable();
-        table.printFinalTable();
 
-        /*Scanner ans = new Scanner(System.in);
+
+        Scanner ans = new Scanner(System.in);
         int i;
-        //Game game;
+        Game game;
 
         do {
             System.out.println("Πάτα 1 για το Βασικό\n");
@@ -25,18 +22,18 @@ public class cardGame {
             switch(i) {
                 case 1: {
                     System.out.println("case 1");
-                    //game = new Game(4,6,2);
+                    game = new Game(4,6,2);
                     break;
                 }
                 case 2: {
                     System.out.println("case 2");
 
-                    //game = new Game(6,8,2);
+                    game = new Game(6,8,2);
                     break;
                 }
                 case 3: {
                     System.out.println("case 3");
-                    //game = new Game(6,6,3);
+                    game = new Game(6,6,3);
                     break;
                 }
                 case 0: {
@@ -44,6 +41,6 @@ public class cardGame {
                     break;
                 }
             }
-        } while(i != 0);*/
+        } while(i != 0);
     }
 }
