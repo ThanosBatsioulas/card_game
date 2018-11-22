@@ -38,17 +38,21 @@ public class Game {
     public int[] getCoordinates() {
         int[] coordinates = new int[2];
 
-        System.out.println("Δώσε την γραμμή της κάρτας");
-        do {
-            System.out.println("i am in");
+        System.out.println("Δώσε την γραμμή της κάρτας ");
+        do{
             coordinates[0] = readCoordinate();
-        }
-        while (!coordInRange(0, table.getRow(), coordinates[0]));
+            if(!coordInRange(0, table.getRow(), coordinates[0])){
+                System.out.println("Έδωσες λάθος συντεταγμένες\nΔώσε τιμή μέχρι " + table.getRow());
+            }
+        } while (!coordInRange(0, table.getRow(), coordinates[0]));
+
 
         System.out.println("Δώσε την στήλη της κάρτας");
         do {
-            System.out.println("aek");
             coordinates[1] = readCoordinate();
+            if(!coordInRange(0, table.getCol(), coordinates[1])){
+                System.out.println("Έδωσες λάθος συντεταγμένες\nΔώσε τιμή μέχρι " + table.getCol());
+            }
         }
         while (!coordInRange(0, table.getCol(), coordinates[1]));
 
@@ -63,7 +67,7 @@ public class Game {
 
     public int readCoordinate() {
         Scanner scanner = new Scanner(System.in);
-        int coord = scanner.nextInt();
+        int coord = scanner.nextInt() - 1;
 
         return coord;
     }
