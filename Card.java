@@ -1,3 +1,6 @@
+/*η κλάση Card υλοποιεί μία κάρτα με ένα σύμβολο.
+ *
+ */
 package cardgame;
 
 import java.util.Random;
@@ -17,6 +20,7 @@ public class Card {
         this.symbol = s;
     }
 
+//γεμίζει την κάρτα με ένα γράμμα της alphabet.
     public static Card fillCard(int index) {
         StringBuilder alphabet = new StringBuilder("ABCDEFGHIJKLMNOPQRSTUVWXYZ");
         char randomSymbol ;
@@ -25,6 +29,7 @@ public class Card {
         return new Card(randomSymbol);
     }
 
+//ελέγχει αν δύο κάρτες έχουν το ίδο symbol.
     public boolean equality(Card card) {
         return this.symbol == card.symbol;
     }

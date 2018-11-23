@@ -1,3 +1,6 @@
+/*Η κλάση Game δημιουργεί ένα αντικείμενο της κλάσης Board
+ *και ουσιαστικά δημιουργεί όλους τους 'κανόνες' για το παιχνίδι.
+ */
 package cardgame;
 
 import java.util.Scanner;
@@ -10,12 +13,12 @@ public class Game {
         table = new Board(row, col, times);
         int rounds = 0;
         table.printFinalTable();
-
+//έναρξη γύρων
         do {
             rounds = rounds + 1;
             System.out.println("Κάνε την " + rounds + "η προσπάθεια..");
 
-            // Get times * set of coordinates [[x, y], [x, y]]
+            //ένα set*times τύπου-> [[x, y], [x, y]]
             int[][] coords = new int[times][2];
             for (int i = 0; i < times; i++ ) {
                 coords[i] = getCoordinates();
@@ -23,25 +26,25 @@ public class Game {
 
             if (table.matchCards(coords)) {
                 System.out.println("ΜΠΡΑΒΟ!!!\nΤαιριάζουν οι κάρτες μεταξύ τους\n");
-                table.changeFinalTable(coords);
+                table.changeFinalTable(coords); //άμα είναι σωστές οι κάρτες βάλτα στον finalTable.
                 table.printFinalTable();
             }
             else {
                 try {
                 System.out.println("SORRY:(\nΔεν ταιριάζουν οι κάρτες μεταξύ τους\n");
                 table.printFakeTable(coords);
-                Thread.sleep(5000);
+                Thread.sleep(5000); //για να μην θυμάται τις λάθος κάρτες.
                 clearScreen();
                 table.printFinalTable();
                 }
                 catch (InterruptedException e){
                 }
             }
-        } while (table.winTable() == false);
+        } while (table.winTable() == false); //τέλος γύρων.
         System.out.println("ΣΥΓΧΑΡΗΤΗΡΙΑ ΚΕΡΔΙΣΕΣ ΤΟ ΠΑΙΧΙΝΙΔΙ ΣΕ" + rounds + "ΓΥΡΟΥΣ");
     }
 
-    // Reads a set of coordinates x, y from the user
+    // παίρνει τις συντεταγμένες από τον χρήστη
     public int[] getCoordinates() {
         int[] coordinates = new int[2];
 
@@ -67,10 +70,12 @@ public class Game {
         return coordinates;
     }
 
+//ελέγχει άμα είναι σωστη η συντεταγμένη.
     public boolean coordInRange(int min, int max, int x) {
         return (x >= min && x < max);
     }
 
+//διβάζει απο τον χρήστη τις συντεταγμένες
     public int readCoordinate() {
         Scanner scanner = new Scanner(System.in);
         int coord = scanner.nextInt() - 1;
@@ -78,6 +83,7 @@ public class Game {
         return coord;
     }
 
+//διαγράφει οτι υπάρχει στο terminal
     public static void clearScreen() {
         System.out.print("\033[H\033[2J");
         System.out.flush();
