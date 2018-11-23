@@ -1,9 +1,15 @@
+/**
+ *H κλάση Main δίνει την επιλογή στον χρήστη να επιλέξει όποιο
+ *από τα 3 παιχνίδια θέλει.
+ * Αθανάσιος Μπατσιούλας ΑΕΜ 2776
+ * Βασίλειος Πιτσιάβας   ΑΕΜ 2859
+ */
 package cardgame;
 
 import java.util.Scanner;
 import java.util.*;
 
-public class cardGame {
+public class Main {
     public static void main(String[] args) {
 
 
