@@ -19,7 +19,7 @@ public class cardGame {
 
             i = ans.nextInt();
             System.out.println();
-            switch(i) {
+            switch (i) {
                 case 1: {
                     game = new Game(4,6,2);
                     break;
@@ -33,10 +33,10 @@ public class cardGame {
                     break;
                 }
                 case 0: {
-                    System.out.println("Έξοδος");
+                    System.out.println("Έξοδος. Bye:D");
                     break;
                 }
             }
-        } while(i != 0);
+        } while (i != 0);
     }
 }

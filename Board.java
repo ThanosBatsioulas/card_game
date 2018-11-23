@@ -55,13 +55,25 @@ public class Board {
     public void printFakeTable(int[][] coordSet) {
         for (int i = 0; i < row; i++) {
             for (int j = 0; j < col; j++) {
-                if((i == coordSet[0][0] && j == coordSet[0][1]) || (i == coordSet[1][0] && j == coordSet[1][1])) {
-                    System.out.print(myTable[i][j].getSymbol());
-                    System.out.print("      ");
+                if (coordSet.length == 2){
+                    if ((i == coordSet[0][0] && j == coordSet[0][1]) || (i == coordSet[1][0] && j == coordSet[1][1])) {
+                        System.out.print(myTable[i][j].getSymbol());
+                        System.out.print("      ");
+                    }
+                    else {
+                        System.out.print(finalTable[i][j]);
+                        System.out.print("      ");
+                    }
                 }
-                else {
-                    System.out.print(finalTable[i][j]);
-                    System.out.print("      ");
+                if (coordSet.length == 3){
+                    if ((i == coordSet[0][0] && j == coordSet[0][1]) || (i == coordSet[1][0] && j == coordSet[1][1]) || (i == coordSet[2][0] && j == coordSet[2][1])) {
+                        System.out.print(myTable[i][j].getSymbol());
+                        System.out.print("      ");
+                    }
+                    else {
+                        System.out.print(finalTable[i][j]);
+                        System.out.print("      ");
+                    }
                 }
             }
         System.out.println("\n");
@@ -107,9 +119,9 @@ public class Board {
     }
 
     public boolean winTable() {
-        for(int i = 0; i < row; i++) {
-            for(int j = 0; j < col; j++) {
-                if(finalTable[i][j] == '*'){
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < col; j++) {
+                if (finalTable[i][j] == '*'){
                     return false;
                 }
             }
