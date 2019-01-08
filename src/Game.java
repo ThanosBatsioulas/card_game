@@ -23,39 +23,45 @@ public class Game {
         }
 
         //έναρξη γύρων
-        for(int j = 0; j < num; j++) {
-            do {
-                System.out.println(num);
-                //rounds = rounds + 1;
-                players[j].setRound();
-                System.out.println("Κάνε την " + players[j].getRound() + "η προσπάθεια..");
+        do {
+            for(int j = 0; j < num; j++) {
+                Boolean flag = false;
+                do {
+                    //rounds = rounds + 1;
+                    players[j].setRound();
+                    System.out.println("o "+ (j+1) + "ος παίχτης να κάνει την " + players[j].getRound() + "η προσπάθεια..");
 
 
-                //ένα set*times τύπου-> [[x, y], [x, y]]
-                int[][] coords = new int[times][2];
-                for (int i = 0; i < times; i++ ) {
-                    coords[i] = getCoordinates();
-                }
-
-                if (table.matchCards(coords)) {
-                    System.out.println("ΜΠΡΑΒΟ!!!\nΤαιριάζουν οι κάρτες μεταξύ τους\n");
-                    table.changeFinalTable(coords); //άμα είναι σωστές οι κάρτες βάλτα στον finalTable.
-                    table.printFinalTable();
-                }
-                else {
-                    try {
-                    System.out.println("SORRY:(\nΔεν ταιριάζουν οι κάρτες μεταξύ τους\n");
-                    table.printFakeTable(coords);
-                    Thread.sleep(5000); //για να μην θυμάται τις λάθος κάρτες.
-                    clearScreen();
-                    table.printFinalTable();
+                    //ένα set*times τύπου-> [[x, y], [x, y]]
+                    int[][] coords = new int[times][2];
+                    for (int i = 0; i < times; i++ ) {
+                        coords[i] = getCoordinates();
                     }
-                    catch (InterruptedException e){
+
+                    if (table.matchCards(coords)) {
+                        System.out.println("ΜΠΡΑΒΟ!!!\nΤαιριάζουν οι κάρτες μεταξύ τους\n");
+                        players[j].setCorrectCards(times);
+                        System.out.println("έχεις βρει" + players[j].getNumOfCorrects() + "σωστές κάρτες");
+                        table.changeFinalTable(coords); //άμα είναι σωστές οι κάρτες βάλτα στον finalTable.
+                        table.printFinalTable();
+                        flag = true ;
                     }
-                }
-            } while (table.winTable() == false); //τέλος γύρων.
-        }
-        System.out.println("ΣΥΓΧΑΡΗΤΗΡΙΑ ΚΕΡΔΙΣΕΣ ΤΟ ΠΑΙΧΙΝΙΔΙ ΣΕ ΓΥΡΟΥΣ");
+                    else {
+                        try {
+                            System.out.println("SORRY:(\nΔεν ταιριάζουν οι κάρτες μεταξύ τους\n");
+                            table.printFakeTable(coords);
+                            flag = false;
+                            Thread.sleep(5000); //για να μην θυμάται τις λάθος κάρτες.
+                            clearScreen();
+                            table.printFinalTable();
+                        }
+                        catch (InterruptedException e){
+                        }
+                    }
+                } while ( flag == true);
+            }
+        } while (table.winTable() == false); //τέλος γύρων.
+
     }
 
     // παίρνει τις συντεταγμένες από τον χρήστη
@@ -101,5 +107,27 @@ public class Game {
     public static void clearScreen() {
         System.out.print("\033[H\033[2J");
         System.out.flush();
+    }
+
+    public void winner(Player[] players) {
+        int max = players[0].getNumOfCorrects();
+        int winner = 0;
+        Boolean no_winner = false;
+        for(int i = 1; i < ; ++i ) {
+            if (players[i].getNumOfCorrects() > max) {
+                max = players[i].getNumOfCorrects();
+                winner = i;
+            }
+            else if (players[i].getNumOfCorrects() == max) {
+                no_winner = true;
+            }
+        }
+        if(no_winner == false) {
+            System.out.println("Ο νικητής είναι ο παίχτης " + winner + " τελειώνοντας σε " + players[winner].getRound() + " γύρους\n");
+            players[winner].setWin();
+        }
+        else {
+            System.out.println("Δεν υπάρχει νικήτης λόγω ισοβαθμίας\n");
+        }
     }
 }
