@@ -18,7 +18,6 @@ public class Player {
 
     public void setRound() {
         round = round + 1;
-        System.out.println("la");
     }
 
     public int getNumOfCorrects() {
