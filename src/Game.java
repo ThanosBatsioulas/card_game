@@ -5,9 +5,11 @@ package cardgame;
 
 import java.util.Scanner;
 import java.util.*;
+import java.util.Arrays;
 
 public class Game {
     Board table ;
+    Player[] players;
 
     private int rounds;
     public Game(int row, int col, int times, int num) {
@@ -15,16 +17,18 @@ public class Game {
         //int rounds = 0;
         table.printFinalTable();
 
+        players = new Player[num];
+        for (int i = 0; i < num; ++i) {
+          players[i] = new Player();
+        }
+
         //έναρξη γύρων
         for(int j = 0; j < num; j++) {
-            players[j] = new Player();
-            System.out.println(players[j].toString());
-
             do {
                 System.out.println(num);
                 //rounds = rounds + 1;
                 players[j].setRound();
-                System.out.println("Κάνε την η προσπάθεια..");
+                System.out.println("Κάνε την " + players[j].getRound() + "η προσπάθεια..");
 
 
                 //ένα set*times τύπου-> [[x, y], [x, y]]
