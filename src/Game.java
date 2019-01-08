@@ -9,39 +9,49 @@ import java.util.*;
 public class Game {
     Board table ;
 
-    public Game(int row, int col, int times) {
+    private int rounds;
+    public Game(int row, int col, int times, int num) {
         table = new Board(row, col, times);
-        int rounds = 0;
+        //int rounds = 0;
         table.printFinalTable();
-//έναρξη γύρων
-        do {
-            rounds = rounds + 1;
-            System.out.println("Κάνε την " + rounds + "η προσπάθεια..");
 
-            //ένα set*times τύπου-> [[x, y], [x, y]]
-            int[][] coords = new int[times][2];
-            for (int i = 0; i < times; i++ ) {
-                coords[i] = getCoordinates();
-            }
+        //έναρξη γύρων
+        for(int j = 0; j < num; j++) {
+            players[j] = new Player();
+            System.out.println(players[j].toString());
 
-            if (table.matchCards(coords)) {
-                System.out.println("ΜΠΡΑΒΟ!!!\nΤαιριάζουν οι κάρτες μεταξύ τους\n");
-                table.changeFinalTable(coords); //άμα είναι σωστές οι κάρτες βάλτα στον finalTable.
-                table.printFinalTable();
-            }
-            else {
-                try {
-                System.out.println("SORRY:(\nΔεν ταιριάζουν οι κάρτες μεταξύ τους\n");
-                table.printFakeTable(coords);
-                Thread.sleep(5000); //για να μην θυμάται τις λάθος κάρτες.
-                clearScreen();
-                table.printFinalTable();
+            do {
+                System.out.println(num);
+                //rounds = rounds + 1;
+                players[j].setRound();
+                System.out.println("Κάνε την η προσπάθεια..");
+
+
+                //ένα set*times τύπου-> [[x, y], [x, y]]
+                int[][] coords = new int[times][2];
+                for (int i = 0; i < times; i++ ) {
+                    coords[i] = getCoordinates();
                 }
-                catch (InterruptedException e){
+
+                if (table.matchCards(coords)) {
+                    System.out.println("ΜΠΡΑΒΟ!!!\nΤαιριάζουν οι κάρτες μεταξύ τους\n");
+                    table.changeFinalTable(coords); //άμα είναι σωστές οι κάρτες βάλτα στον finalTable.
+                    table.printFinalTable();
                 }
-            }
-        } while (table.winTable() == false); //τέλος γύρων.
-        System.out.println("ΣΥΓΧΑΡΗΤΗΡΙΑ ΚΕΡΔΙΣΕΣ ΤΟ ΠΑΙΧΙΝΙΔΙ ΣΕ" + rounds + "ΓΥΡΟΥΣ");
+                else {
+                    try {
+                    System.out.println("SORRY:(\nΔεν ταιριάζουν οι κάρτες μεταξύ τους\n");
+                    table.printFakeTable(coords);
+                    Thread.sleep(5000); //για να μην θυμάται τις λάθος κάρτες.
+                    clearScreen();
+                    table.printFinalTable();
+                    }
+                    catch (InterruptedException e){
+                    }
+                }
+            } while (table.winTable() == false); //τέλος γύρων.
+        }
+        System.out.println("ΣΥΓΧΑΡΗΤΗΡΙΑ ΚΕΡΔΙΣΕΣ ΤΟ ΠΑΙΧΙΝΙΔΙ ΣΕ ΓΥΡΟΥΣ");
     }
 
     // παίρνει τις συντεταγμένες από τον χρήστη
