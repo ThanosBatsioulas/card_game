@@ -10,17 +10,17 @@ public class Card {
 
     public Card(char symbol) {
         this.symbol = symbol;
-
     }
 
     public char getSymbol() {
         return this.symbol;
     }
+
     public void setSymbol(char s) {
         this.symbol = s;
     }
 
-//γεμίζει την κάρτα με ένα γράμμα της alphabet.
+    //γεμίζει την κάρτα με ένα γράμμα της alphabet.
     public static Card fillCard(int index) {
         StringBuilder alphabet = new StringBuilder("ABCDEFGHIJKLMNOPQRSTUVWXYZ");
         char randomSymbol ;
@@ -29,7 +29,7 @@ public class Card {
         return new Card(randomSymbol);
     }
 
-//ελέγχει αν δύο κάρτες έχουν το ίδο symbol.
+    //ελέγχει αν δύο κάρτες έχουν το ίδο symbol.
     public boolean equality(Card card) {
         return this.symbol == card.symbol;
     }
