@@ -12,19 +12,22 @@ public class Game {
     Player[] players;
 
     private int rounds;
-    public Game(int row, int col, int times, int num) {
+    public Game(int row, int col, int times, int num_pl, int num_bots) {
         table = new Board(row, col, times);
         //int rounds = 0;
         table.printFinalTable();
 
-        players = new Player[num];
-        for (int i = 0; i < num; ++i) {
-          players[i] = new Player();
+        players = new Player[num_pl];
+        for (int i = 0; i < num_pl - num_bots; ++i) {
+            players[i] = new Player();
+        }
+        for(int i = num_pl - num_bots; i < num_pl; ++i) {
+            players[i] = new Bot();
         }
 
         //έναρξη γύρων
         do {
-            for(int j = 0; j < num; j++) {
+            for(int j = 0; j < num_pl; j++) {
                 Boolean flag = false;
                 do {
                     //rounds = rounds + 1;
@@ -113,7 +116,7 @@ public class Game {
         int max = players[0].getNumOfCorrects();
         int winner = 0;
         Boolean no_winner = false;
-        for(int i = 1; i < ; ++i ) {
+        for(int i = 1; i < players.length; ++i ) {
             if (players[i].getNumOfCorrects() > max) {
                 max = players[i].getNumOfCorrects();
                 winner = i;
