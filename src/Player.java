@@ -3,9 +3,9 @@ package cardgame;
 import java.util.*;
 
 public class Player {
-    private int wins ;
-    private int correct_cards ;
-    private int round;
+    protected int wins ;
+    protected int correct_cards ;
+    protected int round;
 
     public Player() {
         this.wins = 0;
@@ -35,5 +35,4 @@ public class Player {
     public void setWin() {
         wins = wins + 1;
     }
-
 }
