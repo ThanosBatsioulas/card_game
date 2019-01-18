@@ -31,15 +31,15 @@ public class Main {
                     System.out.println();
                     switch (i) {
                         case 1: {
-                            game = new Game(4, 6, 2, 1, 0);
+                            game = new Game(4, 6, 2, 2, 0);
                             break;
                         }
                         case 2: {
-                            game = new Game(6, 8, 2, 1, 0);
+                            game = new Game(6, 8, 2, 2, 0);
                             break;
                         }
                         case 3: {
-                            game = new Game(6, 6, 3, 1,0);
+                            game = new Game(6, 6, 3, 2,0);
                             break;
                         }
                         case 0: {
@@ -67,7 +67,7 @@ public class Main {
                         } while (num_players < 2 || num_players > 4);
 
                         do {
-                            System.out.println("και πόσασ bot θέλεις να έχει το παιχνίδι;");
+                            System.out.println("και πόσα bot θέλεις να έχει το παιχνίδι;");
                             num_bots = ans.nextInt();
                         } while (num_bots >= num_players || num_bots <= 0);
                     }

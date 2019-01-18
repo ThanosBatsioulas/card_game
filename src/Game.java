@@ -10,8 +10,10 @@ import java.util.Arrays;
 public class Game {
     Board table ;
     Player[] players;
+    int level;
 
     private int rounds;
+
     public Game(int row, int col, int times, int num_pl, int num_bots) {
         table = new Board(row, col, times);
         //int rounds = 0;
@@ -22,7 +24,13 @@ public class Game {
             players[i] = new Player();
         }
         for(int i = num_pl - num_bots; i < num_pl; ++i) {
-            players[i] = new Bot();
+            do {
+                Scanner ans = new Scanner(System.in);
+                System.out.println("Τι level δυσκολίας επιθυμείς;\n");
+                System.out.println("Για μνήμη χρυσόψαρου πάτα 1\nΓια μνήμη κανγκουρο πάτα 2\nΓια μνήμη ελέφαντα πάτα 3\n");
+                level = ans.nextInt();
+            } while ( level != 1 && level != 2 && level != 3);
+            players[i] = new Bot(level);
         }
 
         //έναρξη γύρων
@@ -37,14 +45,20 @@ public class Game {
 
                     //ένα set*times τύπου-> [[x, y], [x, y]]
                     int[][] coords = new int[times][2];
-                    for (int i = 0; i < times; i++ ) {
-                        coords[i] = getCoordinates();
+                    coords = players[j].getAllCoordinates(row, col, times);
+                    for (int z = 0; z < num_pl; ++z) {
+                        for (int i = 0; i < times; ++i){
+                            players[z].addToMemory(coords[i], table.returnCard(coords[i][0], coords[i][1]));
+                        }
                     }
 
                     if (table.matchCards(coords)) {
+                        for(int z = 0; z < num_pl; ++z) {
+                            players[z].cardFound(table.returnCard(coords[0][0], coords[0][1]));
+                        }
                         System.out.println("ΜΠΡΑΒΟ!!!\nΤαιριάζουν οι κάρτες μεταξύ τους\n");
                         players[j].setCorrectCards(times);
-                        System.out.println("έχεις βρει" + players[j].getNumOfCorrects() + "σωστές κάρτες");
+                        System.out.println("έχεις βρει " + players[j].getNumOfCorrects() + "σωστές κάρτες");
                         table.changeFinalTable(coords); //άμα είναι σωστές οι κάρτες βάλτα στον finalTable.
                         table.printFinalTable();
                         flag = true ;
@@ -61,52 +75,13 @@ public class Game {
                         catch (InterruptedException e){
                         }
                     }
-                } while ( flag == true);
+                } while (flag == true);
             }
         } while (table.winTable() == false); //τέλος γύρων.
 
     }
 
-    // παίρνει τις συντεταγμένες από τον χρήστη
-    public int[] getCoordinates() {
-        int[] coordinates = new int[2];
-
-        System.out.println("->Δώσε την γραμμή της κάρτας ");
-        do {
-            coordinates[0] = readCoordinate();
-            if (!coordInRange(0, table.getRow(), coordinates[0])){
-                System.out.println("Έδωσες λάθος συντεταγμένες\nΔώσε τιμή μέχρι " + table.getRow());
-            }
-        } while (!coordInRange(0, table.getRow(), coordinates[0]));
-
-
-        System.out.println("->Δώσε την στήλη της κάρτας");
-        do {
-            coordinates[1] = readCoordinate();
-            System.out.println();
-            if (!coordInRange(0, table.getCol(), coordinates[1])){
-                System.out.println("Έδωσες λάθος συντεταγμένες\nΔώσε τιμή μέχρι " + table.getCol());
-            }
-        }
-        while (!coordInRange(0, table.getCol(), coordinates[1]));
-
-        return coordinates;
-    }
-
-//ελέγχει άμα είναι σωστη η συντεταγμένη.
-    public boolean coordInRange(int min, int max, int x) {
-        return (x >= min && x < max);
-    }
-
-//διβάζει απο τον χρήστη τις συντεταγμένες
-    public int readCoordinate() {
-        Scanner scanner = new Scanner(System.in);
-        int coord = scanner.nextInt() - 1;
-
-        return coord;
-    }
-
-//διαγράφει οτι υπάρχει στο terminal
+    //διαγράφει οτι υπάρχει στο terminal
     public static void clearScreen() {
         System.out.print("\033[H\033[2J");
         System.out.flush();

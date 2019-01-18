@@ -7,7 +7,7 @@ import java.util.*;
 import java.util.Collections;
 
 public class Board {
-    private Card[][] myTable;
+    public Card[][] myTable;
     private char[][] finalTable;
     private int times,row,col;
 
@@ -130,5 +130,8 @@ public class Board {
             }
         }
         return true; //αυτό σημαίνει ότι τελείωσε το παιχνίδι.
+    }
+    public Card returnCard(int x , int y) {
+        return myTable[x][y];
     }
 }
